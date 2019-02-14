@@ -1,0 +1,1 @@
+# kmd-logic-consent-service-console-sample
