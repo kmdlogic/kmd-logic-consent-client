@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kmd.Logic.ConsentService.ConsoleSample", "Kmd.Logic.ConsentService.ConsoleSample\Kmd.Logic.ConsentService.ConsoleSample.csproj", "{917722E9-002E-4F2F-A700-E68ACC54CBAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{917722E9-002E-4F2F-A700-E68ACC54CBAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{917722E9-002E-4F2F-A700-E68ACC54CBAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{917722E9-002E-4F2F-A700-E68ACC54CBAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{917722E9-002E-4F2F-A700-E68ACC54CBAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44F87F31-F397-448B-BD4C-105CD36B9D00}
+	EndGlobalSection
+EndGlobal
