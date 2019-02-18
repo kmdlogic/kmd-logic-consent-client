@@ -62,24 +62,33 @@ namespace Kmd.Logic.ConsentService.ConsoleSample
             var consentGroup = client.CreateConsentGroup(subscriptionId, new ConsentGroupRequest
             {
                 Name = "TestGroup",
-                KeyFormat = "\\d{10}",
-                Scopes = new List<string> { "Scope1", "Scope2" }
+                KeyFormat = @"^\d{10}$",
+                Scopes = new List<string> { "Scope1", "Scope2" },
+                Members = new List<ConsentGroupMemberRequest>
+                {
+                    new ConsentGroupMemberRequest(
+                        "TestMember",
+                        "TestMember",
+                        subscriptionId, 
+                        "all"
+                    )
+                }
             });
 
             Log.Information("Created consent group with id {id}", consentGroup.Id);
-            
-            //TODO: Need to create two separate APIs for create and update as we cannot use empty key as route parameter
-            //var consent = client.CreateOrUpdateConsent(subscriptionId, consentGroup.Id.Value, null, new ConsentRequest
-            //{
-            //    Member = "TestMember",
-            //    Scopes = new List<string> { "Scope1" },
-            //    AuthorizedMembers = new List<string>
-            //    {
-            //        "TestMember"
-            //    }
-            //});
 
-            //Log.Information("Created consent with id {id}", consent.Id);
+            var key = "1234567890";
+            var consent = client.CreateOrUpdateConsent(subscriptionId, consentGroup.Id.Value, key, new ConsentRequest
+            {
+                Member = "TestMember",
+                Scopes = new List<string> { "Scope1" },
+                AuthorizedMembers = new List<string>
+                {
+                    "TestMember"
+                }
+            });
+
+            Log.Information("Created consent with id {id}", consent.Id);
         }
 
 
