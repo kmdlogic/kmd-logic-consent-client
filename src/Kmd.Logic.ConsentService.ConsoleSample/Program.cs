@@ -29,7 +29,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample
                     .Build()
                     .Get<AppConfiguration>();
 
-                await Run(config);
+                await Run(config).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -59,7 +59,8 @@ namespace Kmd.Logic.ConsentService.ConsoleSample
             var client = new ConsentServiceClient(new TokenCredentials(new LogicTokenProvider(config)));
             client.BaseUri = logicEnvironment.ApiRootUri;
 
-            var consentGroup = client.CreateConsentGroup(subscriptionId, new ConsentGroupRequest
+            ConsentGroup consentGroup = null;
+            var consentGroupResponse = await client.CreateConsentGroupAsync(subscriptionId, new ConsentGroupRequest
             {
                 Name = "TestGroup",
                 KeyFormat = @"^\d{10}$",
@@ -75,10 +76,30 @@ namespace Kmd.Logic.ConsentService.ConsoleSample
                 }
             });
 
+            switch (consentGroupResponse)
+            {
+                case ConsentGroup consentGroupResult:
+                    consentGroup = consentGroupResult;
+                    break;
+                case IDictionary<string, IList<string>> errorResult:
+                    Log.Error("Error creating consent group. Validation failed for below properties");
+                    foreach (var propertyName in errorResult.Keys)
+                    {
+                        foreach (var error in errorResult[propertyName])
+                        {
+                            Log.Error("{propertyName}: {error}", propertyName, error);
+                        }
+                    }
+                    return;
+                default:
+                    Log.Error("Failed to create consent group with unknown error");
+                    return;
+            }
+
             Log.Information("Created consent group with id {id}", consentGroup.Id);
 
             var key = "1234567890";
-            var consent = client.CreateOrUpdateConsent(subscriptionId, consentGroup.Id.Value, key, new ConsentRequest
+            var consentResponse = await client.CreateOrUpdateConsentAsync(subscriptionId, consentGroup.Id.Value, key, new ConsentRequest
             {
                 Member = "TestMember",
                 Scopes = new List<string> { "Scope1" },
@@ -87,6 +108,27 @@ namespace Kmd.Logic.ConsentService.ConsoleSample
                     "TestMember"
                 }
             });
+
+            ConsentInstance consent;
+            switch (consentResponse)
+            {
+                case ConsentInstance consentResult:
+                    consent = consentResult;
+                    break;
+                case IDictionary<string, IList<string>> errorResult:
+                    Log.Error("Error creating consent group. Validation failed for below properties");
+                    foreach (var propertyName in errorResult.Keys)
+                    {
+                        foreach (var error in errorResult[propertyName])
+                        {
+                            Log.Error("{propertyName}: {error}", propertyName, error);
+                        }
+                    }
+                    return;
+                default:
+                    Log.Error("Failed to create consent group with unknown error");
+                    return;
+            }
 
             Log.Information("Created consent with id {id}", consent.Id);
         }

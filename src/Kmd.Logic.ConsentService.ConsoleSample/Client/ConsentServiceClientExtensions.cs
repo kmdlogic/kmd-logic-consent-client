@@ -101,7 +101,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='request'>
             /// The details of consent being granted
             /// </param>
-            public static ConsentInstance CreateOrUpdateConsent(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request)
+            public static object CreateOrUpdateConsent(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request)
             {
                 return operations.CreateOrUpdateConsentAsync(subscriptionId, consentGroupId, key, request).GetAwaiter().GetResult();
             }
@@ -127,7 +127,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ConsentInstance> CreateOrUpdateConsentAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> CreateOrUpdateConsentAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.CreateOrUpdateConsentWithHttpMessagesAsync(subscriptionId, consentGroupId, key, request, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -182,144 +182,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             public static async Task RevokeConsentAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, string member, CancellationToken cancellationToken = default(CancellationToken))
             {
                 (await operations.RevokeConsentWithHttpMessagesAsync(subscriptionId, consentGroupId, key, member, null, cancellationToken).ConfigureAwait(false)).Dispose();
-            }
-
-            /// <summary>
-            /// Get the details of consent group managed by the subscription
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='subscriptionId'>
-            /// The subscription which owns the consent group
-            /// </param>
-            /// <param name='consentGroupId'>
-            /// The consent group to fetch
-            /// </param>
-            public static ConsentGroup GetConsentGroupDetail(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId)
-            {
-                return operations.GetConsentGroupDetailAsync(subscriptionId, consentGroupId).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Get the details of consent group managed by the subscription
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='subscriptionId'>
-            /// The subscription which owns the consent group
-            /// </param>
-            /// <param name='consentGroupId'>
-            /// The consent group to fetch
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<ConsentGroup> GetConsentGroupDetailAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.GetConsentGroupDetailWithHttpMessagesAsync(subscriptionId, consentGroupId, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Update an existing consent group
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='subscriptionId'>
-            /// The subscription responsible for managing this consent group
-            /// </param>
-            /// <param name='consentGroupId'>
-            /// The consent group to update
-            /// </param>
-            /// <param name='request'>
-            /// The details of the consent group being updated
-            /// </param>
-            public static ConsentGroup UpdateConsentGroup(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, ConsentGroupRequest request = default(ConsentGroupRequest))
-            {
-                return operations.UpdateConsentGroupAsync(subscriptionId, consentGroupId, request).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Update an existing consent group
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='subscriptionId'>
-            /// The subscription responsible for managing this consent group
-            /// </param>
-            /// <param name='consentGroupId'>
-            /// The consent group to update
-            /// </param>
-            /// <param name='request'>
-            /// The details of the consent group being updated
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<ConsentGroup> UpdateConsentGroupAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, ConsentGroupRequest request = default(ConsentGroupRequest), CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.UpdateConsentGroupWithHttpMessagesAsync(subscriptionId, consentGroupId, request, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// Create or update the details of consent
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='subscriptionId'>
-            /// The subscription with access to the consent group
-            /// </param>
-            /// <param name='consentGroupId'>
-            /// The consent group to update
-            /// </param>
-            /// <param name='key'>
-            /// The consent key being updated
-            /// </param>
-            /// <param name='request'>
-            /// The details of consent being granted
-            /// </param>
-            public static ConsentInstance CreateOrUpdateConsent1(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request)
-            {
-                return operations.CreateOrUpdateConsent1Async(subscriptionId, consentGroupId, key, request).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// Create or update the details of consent
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='subscriptionId'>
-            /// The subscription with access to the consent group
-            /// </param>
-            /// <param name='consentGroupId'>
-            /// The consent group to update
-            /// </param>
-            /// <param name='key'>
-            /// The consent key being updated
-            /// </param>
-            /// <param name='request'>
-            /// The details of consent being granted
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<ConsentInstance> CreateOrUpdateConsent1Async(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.CreateOrUpdateConsent1WithHttpMessagesAsync(subscriptionId, consentGroupId, key, request, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
             }
 
             /// <summary>
@@ -428,7 +290,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='request'>
             /// The details of the consent group being created
             /// </param>
-            public static ConsentGroup CreateConsentGroup(this IConsentServiceClient operations, System.Guid subscriptionId, ConsentGroupRequest request = default(ConsentGroupRequest))
+            public static object CreateConsentGroup(this IConsentServiceClient operations, System.Guid subscriptionId, ConsentGroupRequest request = default(ConsentGroupRequest))
             {
                 return operations.CreateConsentGroupAsync(subscriptionId, request).GetAwaiter().GetResult();
             }
@@ -448,9 +310,95 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ConsentGroup> CreateConsentGroupAsync(this IConsentServiceClient operations, System.Guid subscriptionId, ConsentGroupRequest request = default(ConsentGroupRequest), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> CreateConsentGroupAsync(this IConsentServiceClient operations, System.Guid subscriptionId, ConsentGroupRequest request = default(ConsentGroupRequest), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.CreateConsentGroupWithHttpMessagesAsync(subscriptionId, request, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Get the details of consent group managed by the subscription
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// The subscription which owns the consent group
+            /// </param>
+            /// <param name='consentGroupId'>
+            /// The consent group to fetch
+            /// </param>
+            public static ConsentGroup GetConsentGroupDetail(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId)
+            {
+                return operations.GetConsentGroupDetailAsync(subscriptionId, consentGroupId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get the details of consent group managed by the subscription
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// The subscription which owns the consent group
+            /// </param>
+            /// <param name='consentGroupId'>
+            /// The consent group to fetch
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<ConsentGroup> GetConsentGroupDetailAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetConsentGroupDetailWithHttpMessagesAsync(subscriptionId, consentGroupId, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Update an existing consent group
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// The subscription responsible for managing this consent group
+            /// </param>
+            /// <param name='consentGroupId'>
+            /// The consent group to update
+            /// </param>
+            /// <param name='request'>
+            /// The details of the consent group being updated
+            /// </param>
+            public static object UpdateConsentGroup(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, ConsentGroupRequest request = default(ConsentGroupRequest))
+            {
+                return operations.UpdateConsentGroupAsync(subscriptionId, consentGroupId, request).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Update an existing consent group
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// The subscription responsible for managing this consent group
+            /// </param>
+            /// <param name='consentGroupId'>
+            /// The consent group to update
+            /// </param>
+            /// <param name='request'>
+            /// The details of the consent group being updated
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<object> UpdateConsentGroupAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, ConsentGroupRequest request = default(ConsentGroupRequest), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.UpdateConsentGroupWithHttpMessagesAsync(subscriptionId, consentGroupId, request, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

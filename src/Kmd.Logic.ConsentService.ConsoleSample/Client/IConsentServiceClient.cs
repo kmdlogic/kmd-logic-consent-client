@@ -92,7 +92,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<ConsentInstance>> CreateOrUpdateConsentWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object>> CreateOrUpdateConsentWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Revoke consent
@@ -116,66 +116,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// The cancellation token.
         /// </param>
         Task<HttpOperationResponse> RevokeConsentWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, string key, string member, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
-        /// Get the details of consent group managed by the subscription
-        /// </summary>
-        /// <param name='subscriptionId'>
-        /// The subscription which owns the consent group
-        /// </param>
-        /// <param name='consentGroupId'>
-        /// The consent group to fetch
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<HttpOperationResponse<ConsentGroup>> GetConsentGroupDetailWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
-        /// Update an existing consent group
-        /// </summary>
-        /// <param name='subscriptionId'>
-        /// The subscription responsible for managing this consent group
-        /// </param>
-        /// <param name='consentGroupId'>
-        /// The consent group to update
-        /// </param>
-        /// <param name='request'>
-        /// The details of the consent group being updated
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<HttpOperationResponse<ConsentGroup>> UpdateConsentGroupWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, ConsentGroupRequest request = default(ConsentGroupRequest), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-
-        /// <summary>
-        /// Create or update the details of consent
-        /// </summary>
-        /// <param name='subscriptionId'>
-        /// The subscription with access to the consent group
-        /// </param>
-        /// <param name='consentGroupId'>
-        /// The consent group to update
-        /// </param>
-        /// <param name='key'>
-        /// The consent key being updated
-        /// </param>
-        /// <param name='request'>
-        /// The details of consent being granted
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        Task<HttpOperationResponse<ConsentInstance>> CreateOrUpdateConsent1WithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Get the details of consent granted to the member
@@ -233,7 +173,44 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse<ConsentGroup>> CreateConsentGroupWithHttpMessagesAsync(System.Guid subscriptionId, ConsentGroupRequest request = default(ConsentGroupRequest), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object>> CreateConsentGroupWithHttpMessagesAsync(System.Guid subscriptionId, ConsentGroupRequest request = default(ConsentGroupRequest), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Get the details of consent group managed by the subscription
+        /// </summary>
+        /// <param name='subscriptionId'>
+        /// The subscription which owns the consent group
+        /// </param>
+        /// <param name='consentGroupId'>
+        /// The consent group to fetch
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<ConsentGroup>> GetConsentGroupDetailWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Update an existing consent group
+        /// </summary>
+        /// <param name='subscriptionId'>
+        /// The subscription responsible for managing this consent group
+        /// </param>
+        /// <param name='consentGroupId'>
+        /// The consent group to update
+        /// </param>
+        /// <param name='request'>
+        /// The details of the consent group being updated
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<HttpOperationResponse<object>> UpdateConsentGroupWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, ConsentGroupRequest request = default(ConsentGroupRequest), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
     }
 }
