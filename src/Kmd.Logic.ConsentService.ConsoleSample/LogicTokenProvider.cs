@@ -47,6 +47,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample
                 Log.Debug("Got access token {@Token}", token);
                 currentToken = token;
             }
+
             return new AuthenticationHeaderValue(currentToken.token_type, currentToken.access_token);
         }
 

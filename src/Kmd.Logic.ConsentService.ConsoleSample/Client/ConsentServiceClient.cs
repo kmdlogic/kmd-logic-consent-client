@@ -35,6 +35,11 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         public JsonSerializerSettings DeserializationSettings { get; private set; }
 
         /// <summary>
+        /// Client API version.
+        /// </summary>
+        public string ApiVersion { get; private set; }
+
+        /// <summary>
         /// Subscription credentials which uniquely identify client subscription.
         /// </summary>
         public ServiceClientCredentials Credentials { get; private set; }
@@ -281,6 +286,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         private void Initialize()
         {
             BaseUri = new System.Uri("http://localhost");
+            ApiVersion = "1.1.1";
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,
@@ -351,7 +357,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<object>> GetConsentDetailsWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, string key, string member, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<object>> GetConsentWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, string key, string member, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (key == null)
             {
@@ -361,6 +367,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "member");
             }
+            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -372,8 +379,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 tracingParameters.Add("consentGroupId", consentGroupId);
                 tracingParameters.Add("key", key);
                 tracingParameters.Add("member", member);
+                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetConsentDetails", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "GetConsent", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
@@ -385,6 +393,10 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             if (member != null)
             {
                 _queryParameters.Add(string.Format("member={0}", System.Uri.EscapeDataString(member)));
+            }
+            if (apiVersion != null)
+            {
+                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
             }
             if (_queryParameters.Count > 0)
             {
@@ -555,7 +567,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<object>> CreateOrUpdateConsentWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<object>> SaveConsentWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (key == null)
             {
@@ -569,6 +581,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 request.Validate();
             }
+            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -580,8 +593,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 tracingParameters.Add("consentGroupId", consentGroupId);
                 tracingParameters.Add("key", key);
                 tracingParameters.Add("request", request);
+                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "CreateOrUpdateConsent", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "SaveConsent", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
@@ -589,6 +603,15 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(subscriptionId, SerializationSettings).Trim('"')));
             _url = _url.Replace("{consentGroupId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(consentGroupId, SerializationSettings).Trim('"')));
             _url = _url.Replace("{key}", System.Uri.EscapeDataString(key));
+            List<string> _queryParameters = new List<string>();
+            if (apiVersion != null)
+            {
+                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -757,7 +780,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse> RevokeConsentWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, string key, string member, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse> DeleteConsentWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, string key, string member, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (key == null)
             {
@@ -767,6 +790,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "member");
             }
+            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -778,8 +802,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 tracingParameters.Add("consentGroupId", consentGroupId);
                 tracingParameters.Add("key", key);
                 tracingParameters.Add("member", member);
+                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "RevokeConsent", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "DeleteConsent", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
@@ -791,6 +816,10 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             if (member != null)
             {
                 _queryParameters.Add(string.Format("member={0}", System.Uri.EscapeDataString(member)));
+            }
+            if (apiVersion != null)
+            {
+                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
             }
             if (_queryParameters.Count > 0)
             {
@@ -921,6 +950,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "member");
             }
+            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -933,6 +963,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 tracingParameters.Add("key", key);
                 tracingParameters.Add("member", member);
                 tracingParameters.Add("scopes", scopes);
+                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetMemberConsent", tracingParameters);
             }
@@ -947,6 +978,10 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             if (scopes != null)
             {
                 _queryParameters.Add(string.Format("scopes={0}", System.Uri.EscapeDataString(scopes)));
+            }
+            if (apiVersion != null)
+            {
+                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
             }
             if (_queryParameters.Count > 0)
             {
@@ -1066,8 +1101,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<IList<ConsentGroupListResponse>>> GetConsentGroupsWithHttpMessagesAsync(System.Guid subscriptionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<IList<ConsentGroupListResponse>>> GetAllConsentGroupsWithHttpMessagesAsync(System.Guid subscriptionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
+            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1076,13 +1112,23 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("subscriptionId", subscriptionId);
+                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetConsentGroups", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "GetAllConsentGroups", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/consents").ToString();
             _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(subscriptionId, SerializationSettings).Trim('"')));
+            List<string> _queryParameters = new List<string>();
+            if (apiVersion != null)
+            {
+                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -1206,6 +1252,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 request.Validate();
             }
+            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1215,6 +1262,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("subscriptionId", subscriptionId);
                 tracingParameters.Add("request", request);
+                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "CreateConsentGroup", tracingParameters);
             }
@@ -1222,6 +1270,15 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             var _baseUrl = BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/consents").ToString();
             _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(subscriptionId, SerializationSettings).Trim('"')));
+            List<string> _queryParameters = new List<string>();
+            if (apiVersion != null)
+            {
+                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -1302,7 +1359,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<ConsentGroup>(_responseContent, DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<ConsentGroupResponse>(_responseContent, DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -1363,8 +1420,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ConsentGroup>> GetConsentGroupDetailWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<ConsentGroupResponse>> GetConsentGroupWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
+            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1374,14 +1432,24 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("subscriptionId", subscriptionId);
                 tracingParameters.Add("consentGroupId", consentGroupId);
+                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetConsentGroupDetail", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "GetConsentGroup", tracingParameters);
             }
             // Construct URL
             var _baseUrl = BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/consents/{consentGroupId}").ToString();
             _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(subscriptionId, SerializationSettings).Trim('"')));
             _url = _url.Replace("{consentGroupId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(consentGroupId, SerializationSettings).Trim('"')));
+            List<string> _queryParameters = new List<string>();
+            if (apiVersion != null)
+            {
+                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -1447,7 +1515,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<ConsentGroup>();
+            var _result = new HttpOperationResponse<ConsentGroupResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -1456,7 +1524,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<ConsentGroup>(_responseContent, DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<ConsentGroupResponse>(_responseContent, DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -1508,6 +1576,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 request.Validate();
             }
+            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1518,6 +1587,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 tracingParameters.Add("subscriptionId", subscriptionId);
                 tracingParameters.Add("consentGroupId", consentGroupId);
                 tracingParameters.Add("request", request);
+                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "UpdateConsentGroup", tracingParameters);
             }
@@ -1526,6 +1596,15 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/consents/{consentGroupId}").ToString();
             _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(subscriptionId, SerializationSettings).Trim('"')));
             _url = _url.Replace("{consentGroupId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(consentGroupId, SerializationSettings).Trim('"')));
+            List<string> _queryParameters = new List<string>();
+            if (apiVersion != null)
+            {
+                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
+            }
+            if (_queryParameters.Count > 0)
+            {
+                _url += "?" + string.Join("&", _queryParameters);
+            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -1606,7 +1685,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<ConsentGroup>(_responseContent, DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<ConsentGroupResponse>(_responseContent, DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {

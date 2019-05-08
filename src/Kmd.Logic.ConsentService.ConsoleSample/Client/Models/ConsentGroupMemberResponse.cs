@@ -9,22 +9,20 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class ConsentGroupMember
+    public partial class ConsentGroupMemberResponse
     {
         /// <summary>
-        /// Initializes a new instance of the ConsentGroupMember class.
+        /// Initializes a new instance of the ConsentGroupMemberResponse class.
         /// </summary>
-        public ConsentGroupMember()
+        public ConsentGroupMemberResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentGroupMember class.
+        /// Initializes a new instance of the ConsentGroupMemberResponse class.
         /// </summary>
-        /// <param name="roles">Possible values include: 'none', 'read',
-        /// 'write', 'delete', 'all'</param>
-        public ConsentGroupMember(string key = default(string), string name = default(string), System.Guid? subscriptionId = default(System.Guid?), string roles = default(string))
+        public ConsentGroupMemberResponse(string key = default(string), string name = default(string), System.Guid? subscriptionId = default(System.Guid?), ConsentRolesRequestResponse roles = default(ConsentRolesRequestResponse))
         {
             Key = key;
             Name = name;
@@ -54,11 +52,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
         public System.Guid? SubscriptionId { get; set; }
 
         /// <summary>
-        /// Gets or sets possible values include: 'none', 'read', 'write',
-        /// 'delete', 'all'
         /// </summary>
         [JsonProperty(PropertyName = "roles")]
-        public string Roles { get; set; }
+        public ConsentRolesRequestResponse Roles { get; set; }
 
     }
 }

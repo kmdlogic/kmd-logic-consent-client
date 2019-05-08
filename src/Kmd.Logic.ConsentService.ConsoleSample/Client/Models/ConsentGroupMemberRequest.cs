@@ -23,9 +23,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
         /// <summary>
         /// Initializes a new instance of the ConsentGroupMemberRequest class.
         /// </summary>
-        /// <param name="roles">Possible values include: 'none', 'read',
-        /// 'write', 'delete', 'all'</param>
-        public ConsentGroupMemberRequest(string key, string name, System.Guid subscriptionId, string roles = default(string))
+        public ConsentGroupMemberRequest(string key, string name, System.Guid subscriptionId, ConsentRolesRequestResponse roles = default(ConsentRolesRequestResponse))
         {
             Key = key;
             Name = name;
@@ -55,11 +53,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
         public System.Guid SubscriptionId { get; set; }
 
         /// <summary>
-        /// Gets or sets possible values include: 'none', 'read', 'write',
-        /// 'delete', 'all'
         /// </summary>
         [JsonProperty(PropertyName = "roles")]
-        public string Roles { get; set; }
+        public ConsentRolesRequestResponse Roles { get; set; }
 
         /// <summary>
         /// Validate the object.
@@ -76,24 +72,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
             if (Name == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "Name");
-            }
-            if (Key != null)
-            {
-                if (Key.Length < 3)
-                {
-                    throw new ValidationException(ValidationRules.MinLength, "Key", 3);
-                }
-                if (!System.Text.RegularExpressions.Regex.IsMatch(Key, "^\\w+$"))
-                {
-                    throw new ValidationException(ValidationRules.Pattern, "Key", "^\\w+$");
-                }
-            }
-            if (Name != null)
-            {
-                if (Name.Length < 3)
-                {
-                    throw new ValidationException(ValidationRules.MinLength, "Name", 3);
-                }
             }
         }
     }

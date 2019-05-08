@@ -71,13 +71,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "Name");
             }
-            if (Name != null)
-            {
-                if (Name.Length < 3)
-                {
-                    throw new ValidationException(ValidationRules.MinLength, "Name", 3);
-                }
-            }
             if (Members != null)
             {
                 foreach (var element in Members)

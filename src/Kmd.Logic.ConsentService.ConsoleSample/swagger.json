@@ -1,1 +1,768 @@
-{"swagger":"2.0","info":{"version":"1.0.0","title":"KMD Logic Data Consent Service API"},"paths":{"/subscriptions/{subscriptionId}/consents/{consentGroupId}/{key}":{"get":{"tags":["Consent"],"summary":"Get the complete details of consent","description":"The requesting member must have both Read and Write permissions to use this method.\r\n\r\nFor a member to get consent details for operational use, use the route: \r\n  subscriptions/{subscriptionId}/consents/{consentGroupId}/{key}/{member}","operationId":"GetConsentDetails","consumes":[],"produces":["application/json","text/json"],"parameters":[{"name":"subscriptionId","in":"path","description":"The subscription with access to the consent group","required":true,"type":"string","format":"uuid"},{"name":"consentGroupId","in":"path","description":"The consent group being requested","required":true,"type":"string","format":"uuid"},{"name":"key","in":"path","description":"The consent key being requested","required":true,"type":"string"},{"name":"member","in":"query","description":"The consent group member requesting access","required":true,"type":"string"}],"responses":{"200":{"description":"Success","schema":{"$ref":"#/definitions/ConsentInstance"}},"400":{"description":"Bad Request","schema":{"type":"object","additionalProperties":{"uniqueItems":false,"type":"array","items":{"type":"string"}}}},"401":{"description":"Unauthorized"},"403":{"description":"Forbidden","schema":{"type":"string"}},"404":{"description":"Not Found"}},"security":[{"Bearer":[]}]},"post":{"tags":["Consent"],"summary":"Create or update the details of consent","operationId":"CreateOrUpdateConsent","consumes":["application/json-patch+json","application/json","text/json","application/*+json"],"produces":["application/json","text/json"],"parameters":[{"name":"subscriptionId","in":"path","description":"The subscription with access to the consent group","required":true,"type":"string","format":"uuid"},{"name":"consentGroupId","in":"path","description":"The consent group to update","required":true,"type":"string","format":"uuid"},{"name":"key","in":"path","description":"The consent key being updated","required":true,"type":"string"},{"name":"request","in":"body","description":"The details of consent being granted","required":true,"schema":{"$ref":"#/definitions/ConsentRequest"}}],"responses":{"200":{"description":"Success","schema":{"$ref":"#/definitions/ConsentInstance"}},"201":{"description":"Success","schema":{"$ref":"#/definitions/ConsentInstance"}},"400":{"description":"Bad Request","schema":{"type":"object","additionalProperties":{"uniqueItems":false,"type":"array","items":{"type":"string"}}}},"401":{"description":"Unauthorized"},"404":{"description":"Not Found"}},"security":[{"Bearer":[]}]},"delete":{"tags":["Consent"],"summary":"Revoke consent","operationId":"RevokeConsent","consumes":[],"produces":[],"parameters":[{"name":"subscriptionId","in":"path","description":"The subscription with access to the consent group","required":true,"type":"string","format":"uuid"},{"name":"consentGroupId","in":"path","description":"The consent group to revoked","required":true,"type":"string","format":"uuid"},{"name":"key","in":"path","description":"The consent key being revoked","required":true,"type":"string"},{"name":"member","in":"query","description":"The consent group member revoking the consent","required":true,"type":"string"}],"responses":{"204":{"description":"Success"},"401":{"description":"Unauthorized"},"404":{"description":"Not Found"}},"security":[{"Bearer":[]}]}},"/subscriptions/{subscriptionId}/consents/{consentGroupId}/{key}/{member}":{"get":{"tags":["Consent"],"summary":"Get the details of consent granted to the member","operationId":"GetMemberConsent","consumes":[],"produces":["application/json","text/json"],"parameters":[{"name":"subscriptionId","in":"path","description":"The subscription with access to the consent group","required":true,"type":"string","format":"uuid"},{"name":"consentGroupId","in":"path","description":"The consent group to fetch","required":true,"type":"string","format":"uuid"},{"name":"key","in":"path","description":"The consent being requested","required":true,"type":"string"},{"name":"member","in":"path","description":"The member retrieving consent","required":true,"type":"string"},{"name":"scopes","in":"query","description":"An optional space separated list of scopes being requested. If specified, only these scopes are returned.","required":false,"type":"string"}],"responses":{"200":{"description":"Success","schema":{"$ref":"#/definitions/MemberConsentResponse"}},"401":{"description":"Unauthorized"},"404":{"description":"Not Found"}},"security":[{"Bearer":[]}]}},"/subscriptions/{subscriptionId}/consents":{"get":{"tags":["ConsentGroup"],"summary":"Get all consent groups managed by the subscription","operationId":"GetConsentGroups","consumes":[],"produces":["application/json","text/json"],"parameters":[{"name":"subscriptionId","in":"path","description":"The subscription which owns the consent group","required":true,"type":"string","format":"uuid"}],"responses":{"200":{"description":"Success","schema":{"uniqueItems":false,"type":"array","items":{"$ref":"#/definitions/ConsentGroupListResponse"}}}},"security":[{"Bearer":[]}]},"post":{"tags":["ConsentGroup"],"summary":"Create a new consent group","operationId":"CreateConsentGroup","consumes":["application/json-patch+json","application/json","text/json","application/*+json"],"produces":["application/json","text/json"],"parameters":[{"name":"subscriptionId","in":"path","description":"The subscription responsible for managing this consent group","required":true,"type":"string","format":"uuid"},{"name":"request","in":"body","description":"The details of the consent group being created","required":false,"schema":{"$ref":"#/definitions/ConsentGroupRequest"}}],"responses":{"201":{"description":"Success","schema":{"$ref":"#/definitions/ConsentGroup"}},"400":{"description":"Bad Request","schema":{"type":"object","additionalProperties":{"uniqueItems":false,"type":"array","items":{"type":"string"}}}}},"security":[{"Bearer":[]}]}},"/subscriptions/{subscriptionId}/consents/{consentGroupId}":{"get":{"tags":["ConsentGroup"],"summary":"Get the details of consent group managed by the subscription","operationId":"GetConsentGroupDetail","consumes":[],"produces":["application/json","text/json"],"parameters":[{"name":"subscriptionId","in":"path","description":"The subscription which owns the consent group","required":true,"type":"string","format":"uuid"},{"name":"consentGroupId","in":"path","description":"The consent group to fetch","required":true,"type":"string","format":"uuid"}],"responses":{"200":{"description":"Success","schema":{"$ref":"#/definitions/ConsentGroup"}},"401":{"description":"Unauthorized"},"404":{"description":"Not Found"}},"security":[{"Bearer":[]}]},"put":{"tags":["ConsentGroup"],"summary":"Update an existing consent group","operationId":"UpdateConsentGroup","consumes":["application/json-patch+json","application/json","text/json","application/*+json"],"produces":["application/json","text/json"],"parameters":[{"name":"subscriptionId","in":"path","description":"The subscription responsible for managing this consent group","required":true,"type":"string","format":"uuid"},{"name":"consentGroupId","in":"path","description":"The consent group to update","required":true,"type":"string","format":"uuid"},{"name":"request","in":"body","description":"The details of the consent group being updated","required":false,"schema":{"$ref":"#/definitions/ConsentGroupRequest"}}],"responses":{"200":{"description":"Success","schema":{"$ref":"#/definitions/ConsentGroup"}},"400":{"description":"Bad Request","schema":{"type":"object","additionalProperties":{"uniqueItems":false,"type":"array","items":{"type":"string"}}}},"401":{"description":"Unauthorized"},"404":{"description":"Not Found"}},"security":[{"Bearer":[]}]}}},"definitions":{"ConsentInstance":{"type":"object","properties":{"id":{"format":"uuid","type":"string"},"consentGroupId":{"format":"uuid","type":"string"},"key":{"type":"string"},"scopes":{"uniqueItems":false,"type":"array","items":{"type":"string"}},"authorizedMembers":{"uniqueItems":false,"type":"array","items":{"type":"string"}}}},"ConsentRequest":{"required":["member"],"type":"object","properties":{"member":{"description":"The key of the member requesting the creation of the consent","type":"string"},"scopes":{"description":"An optional list of scopes to grant consent to. By default all scopes are granted.","uniqueItems":false,"type":"array","items":{"type":"string"}},"authorizedMembers":{"description":"An optional list of member keys to grant consent to. By default all members are granted access.","uniqueItems":false,"type":"array","items":{"type":"string"}}}},"MemberConsentResponse":{"type":"object","properties":{"consentGroupId":{"format":"uuid","type":"string"},"key":{"type":"string"},"member":{"type":"string"},"scopes":{"uniqueItems":false,"type":"array","items":{"type":"string"}}}},"ConsentGroupListResponse":{"type":"object","properties":{"id":{"format":"uuid","type":"string"},"name":{"type":"string"}}},"ConsentGroupRequest":{"required":["name"],"type":"object","properties":{"name":{"minLength":3,"type":"string"},"keyFormat":{"type":"string"},"scopes":{"uniqueItems":false,"type":"array","items":{"type":"string"}},"members":{"uniqueItems":false,"type":"array","items":{"$ref":"#/definitions/ConsentGroupMemberRequest"}}}},"ConsentGroupMemberRequest":{"required":["key","name","subscriptionId"],"type":"object","properties":{"key":{"minLength":3,"pattern":"^\\w+$","type":"string"},"name":{"minLength":3,"type":"string"},"subscriptionId":{"format":"uuid","type":"string"},"roles":{"$ref":"#/definitions/ConsentRoles"}}},"ConsentRoles":{"enum":["none","read","write","delete","all"],"type":"string"},"ConsentGroup":{"type":"object","properties":{"id":{"format":"uuid","type":"string"},"subscriptionId":{"format":"uuid","type":"string"},"name":{"type":"string"},"keyFormat":{"type":"string"},"scopes":{"uniqueItems":false,"type":"array","items":{"type":"string"}},"members":{"uniqueItems":false,"type":"array","items":{"$ref":"#/definitions/ConsentGroupMember"}}}},"ConsentGroupMember":{"type":"object","properties":{"key":{"type":"string"},"name":{"type":"string"},"subscriptionId":{"format":"uuid","type":"string"},"roles":{"$ref":"#/definitions/ConsentRoles"}}}},"securityDefinitions":{"Bearer":{"name":"Authorization","in":"header","type":"apiKey","description":"Standard Authorization header using the Bearer scheme. <b>Example: \"bearer {token}\".</b> You can obtain that value from your browser Developer tools"}},"tags":[]}
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.1.1",
+    "title": "KMD Logic Data Consent Service API"
+  },
+  "paths": {
+    "/subscriptions/{subscriptionId}/consents/{consentGroupId}/{key}": {
+      "get": {
+        "tags": [
+          "Consent"
+        ],
+        "summary": "Get the complete details of consent",
+        "description": "The requesting member must have both Read and Write permissions to use this method.\r\n\r\nFor a member to get consent details for operational use, use the route: \r\n  subscriptions/{subscriptionId}/consents/{consentGroupId}/{key}/{member}",
+        "operationId": "GetConsent",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription with access to the consent group",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "consentGroupId",
+            "in": "path",
+            "description": "The consent group being requested",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "key",
+            "in": "path",
+            "description": "The consent key being requested",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "member",
+            "in": "query",
+            "description": "The consent group member requesting access",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConsentInstance"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "uniqueItems": false,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Consent"
+        ],
+        "summary": "Create or update the details of consent",
+        "operationId": "SaveConsent",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription with access to the consent group",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "consentGroupId",
+            "in": "path",
+            "description": "The consent group to update",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "key",
+            "in": "path",
+            "description": "The consent key being updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "request",
+            "in": "body",
+            "description": "The details of consent being granted",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConsentRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConsentInstance"
+            }
+          },
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConsentInstance"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "uniqueItems": false,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Consent"
+        ],
+        "summary": "Revoke consent",
+        "operationId": "DeleteConsent",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription with access to the consent group",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "consentGroupId",
+            "in": "path",
+            "description": "The consent group to revoked",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "key",
+            "in": "path",
+            "description": "The consent key being revoked",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "member",
+            "in": "query",
+            "description": "The consent group member revoking the consent",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/consents/{consentGroupId}/{key}/{member}": {
+      "get": {
+        "tags": [
+          "Consent"
+        ],
+        "summary": "Get the details of consent granted to the member",
+        "operationId": "GetMemberConsent",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription with access to the consent group",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "consentGroupId",
+            "in": "path",
+            "description": "The consent group to fetch",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "key",
+            "in": "path",
+            "description": "The consent being requested",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "member",
+            "in": "path",
+            "description": "The member retrieving consent",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "scopes",
+            "in": "query",
+            "description": "An optional space separated list of scopes being requested. If specified, only these scopes are returned.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MemberConsentResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/consents": {
+      "get": {
+        "tags": [
+          "ConsentGroup"
+        ],
+        "summary": "Get all consent groups managed by the subscription",
+        "operationId": "GetAllConsentGroups",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription which owns the consent group",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "uniqueItems": false,
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ConsentGroupListResponse"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "ConsentGroup"
+        ],
+        "summary": "Create a new consent group",
+        "operationId": "CreateConsentGroup",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription responsible for managing this consent group",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "request",
+            "in": "body",
+            "description": "The details of the consent group being created",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ConsentGroupRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConsentGroupResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "uniqueItems": false,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/subscriptions/{subscriptionId}/consents/{consentGroupId}": {
+      "get": {
+        "tags": [
+          "ConsentGroup"
+        ],
+        "summary": "Get the details of consent group managed by the subscription",
+        "operationId": "GetConsentGroup",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription which owns the consent group",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "consentGroupId",
+            "in": "path",
+            "description": "The consent group to fetch",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConsentGroupResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "ConsentGroup"
+        ],
+        "summary": "Update an existing consent group",
+        "operationId": "UpdateConsentGroup",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "name": "subscriptionId",
+            "in": "path",
+            "description": "The subscription responsible for managing this consent group",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "consentGroupId",
+            "in": "path",
+            "description": "The consent group to update",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "name": "request",
+            "in": "body",
+            "description": "The details of the consent group being updated",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ConsentGroupRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConsentGroupResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "uniqueItems": false,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ConsentInstance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "consentGroupId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "scopes": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorizedMembers": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ConsentRequest": {
+      "required": [
+        "member"
+      ],
+      "type": "object",
+      "properties": {
+        "member": {
+          "description": "The key of the member requesting the creation of the consent",
+          "type": "string"
+        },
+        "scopes": {
+          "description": "An optional list of scopes to grant consent to. By default all scopes are granted.",
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorizedMembers": {
+          "description": "An optional list of member keys to grant consent to. By default all members are granted access.",
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "MemberConsentResponse": {
+      "type": "object",
+      "properties": {
+        "consentGroupId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "member": {
+          "type": "string"
+        },
+        "scopes": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ConsentGroupListResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "ConsentGroupRequest": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "name": {
+          "minLength": 3,
+          "type": "string"
+        },
+        "keyFormat": {
+          "type": "string"
+        },
+        "scopes": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "members": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConsentGroupMemberRequest"
+          }
+        }
+      }
+    },
+    "ConsentGroupMemberRequest": {
+      "required": [
+        "key",
+        "name",
+        "subscriptionId"
+      ],
+      "type": "object",
+      "properties": {
+        "key": {
+          "minLength": 3,
+          "pattern": "^\\w+$",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 3,
+          "type": "string"
+        },
+        "subscriptionId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "roles": {
+          "$ref": "#/definitions/ConsentRolesRequestResponse"
+        }
+      }
+    },
+    "ConsentRolesRequestResponse": {
+      "type": "object",
+      "properties": {
+        "canRead": {
+          "type": "boolean"
+        },
+        "canWrite": {
+          "type": "boolean"
+        },
+        "canDelete": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ConsentGroupResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "subscriptionId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "keyFormat": {
+          "type": "string"
+        },
+        "scopes": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "members": {
+          "uniqueItems": false,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConsentGroupMemberResponse"
+          }
+        }
+      }
+    },
+    "ConsentGroupMemberResponse": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "subscriptionId": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "roles": {
+          "$ref": "#/definitions/ConsentRolesRequestResponse"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "name": "Authorization",
+      "in": "header",
+      "type": "apiKey",
+      "description": "Standard Authorization header using the Bearer scheme. <b>Example: \"bearer {token}\".</b> You can obtain that value from your browser Developer tools"
+    }
+  },
+  "tags": []
+}

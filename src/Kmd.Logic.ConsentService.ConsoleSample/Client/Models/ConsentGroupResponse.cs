@@ -11,20 +11,20 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
     using System.Collections.Generic;
     using System.Linq;
 
-    public partial class ConsentGroup
+    public partial class ConsentGroupResponse
     {
         /// <summary>
-        /// Initializes a new instance of the ConsentGroup class.
+        /// Initializes a new instance of the ConsentGroupResponse class.
         /// </summary>
-        public ConsentGroup()
+        public ConsentGroupResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentGroup class.
+        /// Initializes a new instance of the ConsentGroupResponse class.
         /// </summary>
-        public ConsentGroup(System.Guid? id = default(System.Guid?), System.Guid? subscriptionId = default(System.Guid?), string name = default(string), string keyFormat = default(string), IList<string> scopes = default(IList<string>), IList<ConsentGroupMember> members = default(IList<ConsentGroupMember>))
+        public ConsentGroupResponse(System.Guid? id = default(System.Guid?), System.Guid? subscriptionId = default(System.Guid?), string name = default(string), string keyFormat = default(string), IList<string> scopes = default(IList<string>), IList<ConsentGroupMemberResponse> members = default(IList<ConsentGroupMemberResponse>))
         {
             Id = id;
             SubscriptionId = subscriptionId;
@@ -68,7 +68,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "members")]
-        public IList<ConsentGroupMember> Members { get; set; }
+        public IList<ConsentGroupMemberResponse> Members { get; set; }
 
     }
 }

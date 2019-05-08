@@ -42,9 +42,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='member'>
             /// The consent group member requesting access
             /// </param>
-            public static object GetConsentDetails(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, string member)
+            public static object GetConsent(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, string member)
             {
-                return operations.GetConsentDetailsAsync(subscriptionId, consentGroupId, key, member).GetAwaiter().GetResult();
+                return operations.GetConsentAsync(subscriptionId, consentGroupId, key, member).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -75,9 +75,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> GetConsentDetailsAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, string member, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> GetConsentAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, string member, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetConsentDetailsWithHttpMessagesAsync(subscriptionId, consentGroupId, key, member, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetConsentWithHttpMessagesAsync(subscriptionId, consentGroupId, key, member, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -101,9 +101,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='request'>
             /// The details of consent being granted
             /// </param>
-            public static object CreateOrUpdateConsent(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request)
+            public static object SaveConsent(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request)
             {
-                return operations.CreateOrUpdateConsentAsync(subscriptionId, consentGroupId, key, request).GetAwaiter().GetResult();
+                return operations.SaveConsentAsync(subscriptionId, consentGroupId, key, request).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -127,9 +127,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<object> CreateOrUpdateConsentAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<object> SaveConsentAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, ConsentRequest request, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.CreateOrUpdateConsentWithHttpMessagesAsync(subscriptionId, consentGroupId, key, request, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.SaveConsentWithHttpMessagesAsync(subscriptionId, consentGroupId, key, request, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -153,9 +153,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='member'>
             /// The consent group member revoking the consent
             /// </param>
-            public static void RevokeConsent(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, string member)
+            public static void DeleteConsent(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, string member)
             {
-                operations.RevokeConsentAsync(subscriptionId, consentGroupId, key, member).GetAwaiter().GetResult();
+                operations.DeleteConsentAsync(subscriptionId, consentGroupId, key, member).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -179,9 +179,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task RevokeConsentAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, string member, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task DeleteConsentAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, string key, string member, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.RevokeConsentWithHttpMessagesAsync(subscriptionId, consentGroupId, key, member, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.DeleteConsentWithHttpMessagesAsync(subscriptionId, consentGroupId, key, member, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -253,9 +253,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='subscriptionId'>
             /// The subscription which owns the consent group
             /// </param>
-            public static IList<ConsentGroupListResponse> GetConsentGroups(this IConsentServiceClient operations, System.Guid subscriptionId)
+            public static IList<ConsentGroupListResponse> GetAllConsentGroups(this IConsentServiceClient operations, System.Guid subscriptionId)
             {
-                return operations.GetConsentGroupsAsync(subscriptionId).GetAwaiter().GetResult();
+                return operations.GetAllConsentGroupsAsync(subscriptionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -270,9 +270,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<ConsentGroupListResponse>> GetConsentGroupsAsync(this IConsentServiceClient operations, System.Guid subscriptionId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<ConsentGroupListResponse>> GetAllConsentGroupsAsync(this IConsentServiceClient operations, System.Guid subscriptionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetConsentGroupsWithHttpMessagesAsync(subscriptionId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetAllConsentGroupsWithHttpMessagesAsync(subscriptionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -330,9 +330,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='consentGroupId'>
             /// The consent group to fetch
             /// </param>
-            public static ConsentGroup GetConsentGroupDetail(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId)
+            public static ConsentGroupResponse GetConsentGroup(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId)
             {
-                return operations.GetConsentGroupDetailAsync(subscriptionId, consentGroupId).GetAwaiter().GetResult();
+                return operations.GetConsentGroupAsync(subscriptionId, consentGroupId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -350,9 +350,9 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ConsentGroup> GetConsentGroupDetailAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ConsentGroupResponse> GetConsentGroupAsync(this IConsentServiceClient operations, System.Guid subscriptionId, System.Guid consentGroupId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetConsentGroupDetailWithHttpMessagesAsync(subscriptionId, consentGroupId, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetConsentGroupWithHttpMessagesAsync(subscriptionId, consentGroupId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,7 +59,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample
             var client = new ConsentServiceClient(new TokenCredentials(new LogicTokenProvider(config)));
             client.BaseUri = logicEnvironment.ApiRootUri;
 
-            ConsentGroup consentGroup = null;
+            ConsentGroupResponse consentGroup = null;
             var consentGroupResponse = await client.CreateConsentGroupAsync(subscriptionId, new ConsentGroupRequest
             {
                 Name = "TestGroup",
@@ -71,14 +71,19 @@ namespace Kmd.Logic.ConsentService.ConsoleSample
                         "TestMember",
                         "TestMember",
                         subscriptionId, 
-                        "all"
+                        new ConsentRolesRequestResponse
+                        {
+                            CanRead = true,
+                            CanWrite = true,
+                            CanDelete = true
+                        }
                     )
                 }
             });
 
             switch (consentGroupResponse)
             {
-                case ConsentGroup consentGroupResult:
+                case ConsentGroupResponse consentGroupResult:
                     consentGroup = consentGroupResult;
                     break;
                 case IDictionary<string, IList<string>> errorResult:
@@ -99,7 +104,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample
             Log.Information("Created consent group with id {id}", consentGroup.Id);
 
             var key = "1234567890";
-            var consentResponse = await client.CreateOrUpdateConsentAsync(subscriptionId, consentGroup.Id.Value, key, new ConsentRequest
+            var consentResponse = await client.SaveConsentAsync(subscriptionId, consentGroup.Id.Value, key, new ConsentRequest
             {
                 Member = "TestMember",
                 Scopes = new List<string> { "Scope1" },
