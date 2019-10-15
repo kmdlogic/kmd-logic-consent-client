@@ -91,7 +91,8 @@ namespace Kmd.Logic.Consent.Client.Sample
                             $"{memberTitle} Sample Group",
                             new List<ConsentGroupMemberRequest>
                             {
-                                new ConsentGroupMemberRequest {
+                                new ConsentGroupMemberRequest
+                                {
                                     Key = configuration.Consent.ConsentMember,
                                     Name = memberTitle,
                                     SubscriptionId = configuration.Consent.SubscriptionId,

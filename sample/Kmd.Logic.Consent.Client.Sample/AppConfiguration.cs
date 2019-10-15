@@ -6,7 +6,9 @@ namespace Kmd.Logic.Consent.Client.Sample
     internal class AppConfiguration
     {
         public string ConsentKey { get; set; }
+
         public string ConsentKeyFormat { get; set; }
+
         public string ConsentScope { get; set; }
 
         public LogicTokenProviderOptions TokenProvider { get; set; } = new LogicTokenProviderOptions();
