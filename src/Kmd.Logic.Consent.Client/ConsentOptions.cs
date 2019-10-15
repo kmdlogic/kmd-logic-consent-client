@@ -3,12 +3,12 @@
 namespace Kmd.Logic.Consent.Client
 {
     /// <summary>
-    /// Provide the configuration options for using the CPR service.
+    /// Provide the configuration options for using the consent service.
     /// </summary>
     public sealed class ConsentOptions
     {
         /// <summary>
-        /// Gets or sets the Logic CPR service.
+        /// Gets or sets the Logic Consent service.
         /// </summary>
         /// <remarks>
         /// This option should not be overridden except for testing purposes.
