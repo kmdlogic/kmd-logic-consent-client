@@ -4,30 +4,29 @@
 // regenerated.
 // </auto-generated>
 
-namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
+namespace Kmd.Logic.Consent.Client.Models
 {
+    using Microsoft.Rest;
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
-    public partial class ConsentGroupResponse
+    public partial class ConsentGroupRequest
     {
         /// <summary>
-        /// Initializes a new instance of the ConsentGroupResponse class.
+        /// Initializes a new instance of the ConsentGroupRequest class.
         /// </summary>
-        public ConsentGroupResponse()
+        public ConsentGroupRequest()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentGroupResponse class.
+        /// Initializes a new instance of the ConsentGroupRequest class.
         /// </summary>
-        public ConsentGroupResponse(System.Guid? id = default(System.Guid?), System.Guid? subscriptionId = default(System.Guid?), string name = default(string), string keyFormat = default(string), IList<string> scopes = default(IList<string>), IList<ConsentGroupMemberResponse> members = default(IList<ConsentGroupMemberResponse>))
+        public ConsentGroupRequest(string name, string keyFormat = default(string), IList<string> scopes = default(IList<string>), IList<ConsentGroupMemberRequest> members = default(IList<ConsentGroupMemberRequest>))
         {
-            Id = id;
-            SubscriptionId = subscriptionId;
             Name = name;
             KeyFormat = keyFormat;
             Scopes = scopes;
@@ -39,16 +38,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "id")]
-        public System.Guid? Id { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "subscriptionId")]
-        public System.Guid? SubscriptionId { get; set; }
 
         /// <summary>
         /// </summary>
@@ -68,7 +57,30 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "members")]
-        public IList<ConsentGroupMemberResponse> Members { get; set; }
+        public IList<ConsentGroupMemberRequest> Members { get; set; }
 
+        /// <summary>
+        /// Validate the object.
+        /// </summary>
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public virtual void Validate()
+        {
+            if (Name == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "Name");
+            }
+            if (Members != null)
+            {
+                foreach (var element in Members)
+                {
+                    if (element != null)
+                    {
+                        element.Validate();
+                    }
+                }
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
+namespace Kmd.Logic.Consent.Client.Models
 {
     using Microsoft.Rest;
     using Newtonsoft.Json;

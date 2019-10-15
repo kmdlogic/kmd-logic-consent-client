@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace Kmd.Logic.ConsentService.ConsoleSample.Client
+namespace Kmd.Logic.Consent.Client
 {
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
@@ -17,7 +17,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
     using System.Threading;
     using System.Threading.Tasks;
 
-    public partial class ConsentServiceClient : ServiceClient<ConsentServiceClient>, IConsentServiceClient
+    internal partial class InternalClient : ServiceClient<InternalClient>, IInternalClient
     {
         /// <summary>
         /// The base URI of the service.
@@ -35,41 +35,36 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         public JsonSerializerSettings DeserializationSettings { get; private set; }
 
         /// <summary>
-        /// Client API version.
-        /// </summary>
-        public string ApiVersion { get; private set; }
-
-        /// <summary>
         /// Subscription credentials which uniquely identify client subscription.
         /// </summary>
         public ServiceClientCredentials Credentials { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentServiceClient class.
+        /// Initializes a new instance of the InternalClient class.
         /// </summary>
         /// <param name='httpClient'>
         /// HttpClient to be used
         /// </param>
         /// <param name='disposeHttpClient'>
-        /// True: will dispose the provided httpClient on calling ConsentServiceClient.Dispose(). False: will not dispose provided httpClient</param>
-        protected ConsentServiceClient(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
+        /// True: will dispose the provided httpClient on calling InternalClient.Dispose(). False: will not dispose provided httpClient</param>
+        protected InternalClient(HttpClient httpClient, bool disposeHttpClient) : base(httpClient, disposeHttpClient)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentServiceClient class.
+        /// Initializes a new instance of the InternalClient class.
         /// </summary>
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        protected ConsentServiceClient(params DelegatingHandler[] handlers) : base(handlers)
+        protected InternalClient(params DelegatingHandler[] handlers) : base(handlers)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentServiceClient class.
+        /// Initializes a new instance of the InternalClient class.
         /// </summary>
         /// <param name='rootHandler'>
         /// Optional. The http client handler used to handle http transport.
@@ -77,13 +72,13 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        protected ConsentServiceClient(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
+        protected InternalClient(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
         {
             Initialize();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentServiceClient class.
+        /// Initializes a new instance of the InternalClient class.
         /// </summary>
         /// <param name='baseUri'>
         /// Optional. The base URI of the service.
@@ -94,7 +89,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        protected ConsentServiceClient(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
+        protected InternalClient(System.Uri baseUri, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (baseUri == null)
             {
@@ -104,7 +99,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentServiceClient class.
+        /// Initializes a new instance of the InternalClient class.
         /// </summary>
         /// <param name='baseUri'>
         /// Optional. The base URI of the service.
@@ -118,7 +113,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        protected ConsentServiceClient(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
+        protected InternalClient(System.Uri baseUri, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
         {
             if (baseUri == null)
             {
@@ -128,7 +123,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentServiceClient class.
+        /// Initializes a new instance of the InternalClient class.
         /// </summary>
         /// <param name='credentials'>
         /// Required. Subscription credentials which uniquely identify client subscription.
@@ -139,7 +134,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public ConsentServiceClient(ServiceClientCredentials credentials, params DelegatingHandler[] handlers) : this(handlers)
+        public InternalClient(ServiceClientCredentials credentials, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (credentials == null)
             {
@@ -153,7 +148,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentServiceClient class.
+        /// Initializes a new instance of the InternalClient class.
         /// </summary>
         /// <param name='credentials'>
         /// Required. Subscription credentials which uniquely identify client subscription.
@@ -162,11 +157,11 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// HttpClient to be used
         /// </param>
         /// <param name='disposeHttpClient'>
-        /// True: will dispose the provided httpClient on calling ConsentServiceClient.Dispose(). False: will not dispose provided httpClient</param>
+        /// True: will dispose the provided httpClient on calling InternalClient.Dispose(). False: will not dispose provided httpClient</param>
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public ConsentServiceClient(ServiceClientCredentials credentials, HttpClient httpClient, bool disposeHttpClient) : this(httpClient, disposeHttpClient)
+        public InternalClient(ServiceClientCredentials credentials, HttpClient httpClient, bool disposeHttpClient) : this(httpClient, disposeHttpClient)
         {
             if (credentials == null)
             {
@@ -180,7 +175,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentServiceClient class.
+        /// Initializes a new instance of the InternalClient class.
         /// </summary>
         /// <param name='credentials'>
         /// Required. Subscription credentials which uniquely identify client subscription.
@@ -194,7 +189,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public ConsentServiceClient(ServiceClientCredentials credentials, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
+        public InternalClient(ServiceClientCredentials credentials, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
         {
             if (credentials == null)
             {
@@ -208,7 +203,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentServiceClient class.
+        /// Initializes a new instance of the InternalClient class.
         /// </summary>
         /// <param name='baseUri'>
         /// Optional. The base URI of the service.
@@ -222,7 +217,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public ConsentServiceClient(System.Uri baseUri, ServiceClientCredentials credentials, params DelegatingHandler[] handlers) : this(handlers)
+        public InternalClient(System.Uri baseUri, ServiceClientCredentials credentials, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (baseUri == null)
             {
@@ -241,7 +236,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentServiceClient class.
+        /// Initializes a new instance of the InternalClient class.
         /// </summary>
         /// <param name='baseUri'>
         /// Optional. The base URI of the service.
@@ -258,7 +253,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public ConsentServiceClient(System.Uri baseUri, ServiceClientCredentials credentials, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
+        public InternalClient(System.Uri baseUri, ServiceClientCredentials credentials, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
         {
             if (baseUri == null)
             {
@@ -286,7 +281,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         private void Initialize()
         {
             BaseUri = new System.Uri("http://localhost");
-            ApiVersion = "1.1.1";
             SerializationSettings = new JsonSerializerSettings
             {
                 Formatting = Newtonsoft.Json.Formatting.Indented,
@@ -367,7 +361,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "member");
             }
-            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -379,7 +372,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 tracingParameters.Add("consentGroupId", consentGroupId);
                 tracingParameters.Add("key", key);
                 tracingParameters.Add("member", member);
-                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetConsent", tracingParameters);
             }
@@ -393,10 +385,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             if (member != null)
             {
                 _queryParameters.Add(string.Format("member={0}", System.Uri.EscapeDataString(member)));
-            }
-            if (apiVersion != null)
-            {
-                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
             }
             if (_queryParameters.Count > 0)
             {
@@ -581,7 +569,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 request.Validate();
             }
-            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -593,7 +580,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 tracingParameters.Add("consentGroupId", consentGroupId);
                 tracingParameters.Add("key", key);
                 tracingParameters.Add("request", request);
-                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "SaveConsent", tracingParameters);
             }
@@ -603,15 +589,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(subscriptionId, SerializationSettings).Trim('"')));
             _url = _url.Replace("{consentGroupId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(consentGroupId, SerializationSettings).Trim('"')));
             _url = _url.Replace("{key}", System.Uri.EscapeDataString(key));
-            List<string> _queryParameters = new List<string>();
-            if (apiVersion != null)
-            {
-                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
-            }
-            if (_queryParameters.Count > 0)
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -790,7 +767,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "member");
             }
-            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -802,7 +778,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 tracingParameters.Add("consentGroupId", consentGroupId);
                 tracingParameters.Add("key", key);
                 tracingParameters.Add("member", member);
-                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "DeleteConsent", tracingParameters);
             }
@@ -816,10 +791,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             if (member != null)
             {
                 _queryParameters.Add(string.Format("member={0}", System.Uri.EscapeDataString(member)));
-            }
-            if (apiVersion != null)
-            {
-                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
             }
             if (_queryParameters.Count > 0)
             {
@@ -950,7 +921,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "member");
             }
-            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -963,7 +933,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 tracingParameters.Add("key", key);
                 tracingParameters.Add("member", member);
                 tracingParameters.Add("scopes", scopes);
-                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetMemberConsent", tracingParameters);
             }
@@ -978,10 +947,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             if (scopes != null)
             {
                 _queryParameters.Add(string.Format("scopes={0}", System.Uri.EscapeDataString(scopes)));
-            }
-            if (apiVersion != null)
-            {
-                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
             }
             if (_queryParameters.Count > 0)
             {
@@ -1103,7 +1068,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// </return>
         public async Task<HttpOperationResponse<IList<ConsentGroupListResponse>>> GetAllConsentGroupsWithHttpMessagesAsync(System.Guid subscriptionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1112,7 +1076,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("subscriptionId", subscriptionId);
-                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetAllConsentGroups", tracingParameters);
             }
@@ -1120,15 +1083,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             var _baseUrl = BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/consents").ToString();
             _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(subscriptionId, SerializationSettings).Trim('"')));
-            List<string> _queryParameters = new List<string>();
-            if (apiVersion != null)
-            {
-                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
-            }
-            if (_queryParameters.Count > 0)
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -1252,7 +1206,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 request.Validate();
             }
-            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1262,7 +1215,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("subscriptionId", subscriptionId);
                 tracingParameters.Add("request", request);
-                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "CreateConsentGroup", tracingParameters);
             }
@@ -1270,15 +1222,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             var _baseUrl = BaseUri.AbsoluteUri;
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/consents").ToString();
             _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(subscriptionId, SerializationSettings).Trim('"')));
-            List<string> _queryParameters = new List<string>();
-            if (apiVersion != null)
-            {
-                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
-            }
-            if (_queryParameters.Count > 0)
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -1422,7 +1365,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// </return>
         public async Task<HttpOperationResponse<ConsentGroupResponse>> GetConsentGroupWithHttpMessagesAsync(System.Guid subscriptionId, System.Guid consentGroupId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1432,7 +1374,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("subscriptionId", subscriptionId);
                 tracingParameters.Add("consentGroupId", consentGroupId);
-                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "GetConsentGroup", tracingParameters);
             }
@@ -1441,15 +1382,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/consents/{consentGroupId}").ToString();
             _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(subscriptionId, SerializationSettings).Trim('"')));
             _url = _url.Replace("{consentGroupId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(consentGroupId, SerializationSettings).Trim('"')));
-            List<string> _queryParameters = new List<string>();
-            if (apiVersion != null)
-            {
-                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
-            }
-            if (_queryParameters.Count > 0)
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
@@ -1576,7 +1508,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             {
                 request.Validate();
             }
-            string apiVersion = "1.1.1";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1587,7 +1518,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
                 tracingParameters.Add("subscriptionId", subscriptionId);
                 tracingParameters.Add("consentGroupId", consentGroupId);
                 tracingParameters.Add("request", request);
-                tracingParameters.Add("apiVersion", apiVersion);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "UpdateConsentGroup", tracingParameters);
             }
@@ -1596,15 +1526,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
             var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "subscriptions/{subscriptionId}/consents/{consentGroupId}").ToString();
             _url = _url.Replace("{subscriptionId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(subscriptionId, SerializationSettings).Trim('"')));
             _url = _url.Replace("{consentGroupId}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(consentGroupId, SerializationSettings).Trim('"')));
-            List<string> _queryParameters = new List<string>();
-            if (apiVersion != null)
-            {
-                _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(apiVersion)));
-            }
-            if (_queryParameters.Count > 0)
-            {
-                _url += "?" + string.Join("&", _queryParameters);
-            }
             // Create HTTP transport objects
             var _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;

@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace Kmd.Logic.ConsentService.ConsoleSample.Client
+namespace Kmd.Logic.Consent.Client
 {
     using Microsoft.Rest;
     using Models;
@@ -16,7 +16,7 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
 
     /// <summary>
     /// </summary>
-    public partial interface IConsentServiceClient : System.IDisposable
+    internal partial interface IInternalClient : System.IDisposable
     {
         /// <summary>
         /// The base URI of the service.
@@ -32,11 +32,6 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client
         /// Gets or sets json deserialization settings.
         /// </summary>
         JsonSerializerSettings DeserializationSettings { get; }
-
-        /// <summary>
-        /// Client API version.
-        /// </summary>
-        string ApiVersion { get; }
 
         /// <summary>
         /// Subscription credentials which uniquely identify client

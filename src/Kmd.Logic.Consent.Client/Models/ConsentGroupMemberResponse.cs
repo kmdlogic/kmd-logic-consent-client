@@ -4,26 +4,25 @@
 // regenerated.
 // </auto-generated>
 
-namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
+namespace Kmd.Logic.Consent.Client.Models
 {
-    using Microsoft.Rest;
     using Newtonsoft.Json;
     using System.Linq;
 
-    public partial class ConsentGroupMemberRequest
+    public partial class ConsentGroupMemberResponse
     {
         /// <summary>
-        /// Initializes a new instance of the ConsentGroupMemberRequest class.
+        /// Initializes a new instance of the ConsentGroupMemberResponse class.
         /// </summary>
-        public ConsentGroupMemberRequest()
+        public ConsentGroupMemberResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ConsentGroupMemberRequest class.
+        /// Initializes a new instance of the ConsentGroupMemberResponse class.
         /// </summary>
-        public ConsentGroupMemberRequest(string key, string name, System.Guid subscriptionId, ConsentRolesRequestResponse roles = default(ConsentRolesRequestResponse))
+        public ConsentGroupMemberResponse(string key = default(string), string name = default(string), System.Guid? subscriptionId = default(System.Guid?), ConsentRolesRequestResponse roles = default(ConsentRolesRequestResponse))
         {
             Key = key;
             Name = name;
@@ -50,29 +49,12 @@ namespace Kmd.Logic.ConsentService.ConsoleSample.Client.Models
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "subscriptionId")]
-        public System.Guid SubscriptionId { get; set; }
+        public System.Guid? SubscriptionId { get; set; }
 
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "roles")]
         public ConsentRolesRequestResponse Roles { get; set; }
 
-        /// <summary>
-        /// Validate the object.
-        /// </summary>
-        /// <exception cref="ValidationException">
-        /// Thrown if validation fails
-        /// </exception>
-        public virtual void Validate()
-        {
-            if (Key == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "Key");
-            }
-            if (Name == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "Name");
-            }
-        }
     }
 }
