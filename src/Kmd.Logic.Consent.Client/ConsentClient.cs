@@ -46,7 +46,6 @@ namespace Kmd.Logic.Consent.Client
         /// <param name="key">The consent key.</param>
         /// <param name="member">The member with review permissions.</param>
         /// <returns>The consent details or null if the key isn't known.</returns>
-        /// <exception cref="ValidationException">Missing key.</exception>
         /// <exception cref="SerializationException">Unable process the service response.</exception>
         /// <exception cref="LogicTokenProviderException">Unable to issue an authorization token.</exception>
         /// <exception cref="ConsentValidationException">Invalid consent parameters.</exception>
@@ -55,25 +54,32 @@ namespace Kmd.Logic.Consent.Client
         {
             var client = this.CreateClient();
 
-            var response = await client.GetConsentWithHttpMessagesAsync(
-                                subscriptionId: this.options.SubscriptionId,
-                                consentGroupId: this.options.ConsentGroupId,
-                                key: key,
-                                member: member ?? this.options.ConsentMember).ConfigureAwait(false);
-
-            switch (response.Response.StatusCode)
+            try
             {
-                case System.Net.HttpStatusCode.OK:
-                    return response.Body as ConsentInstance;
+                var response = await client.GetConsentWithHttpMessagesAsync(
+                                    subscriptionId: this.options.SubscriptionId,
+                                    consentGroupId: this.options.ConsentGroupId,
+                                    key: key,
+                                    member: member ?? this.options.ConsentMember).ConfigureAwait(false);
 
-                case System.Net.HttpStatusCode.NotFound:
-                    return null;
+                switch (response.Response.StatusCode)
+                {
+                    case System.Net.HttpStatusCode.OK:
+                        return response.Body as ConsentInstance;
 
-                case System.Net.HttpStatusCode.BadRequest:
-                    throw new ConsentValidationException(response.Body as IDictionary<string, IList<string>>);
+                    case System.Net.HttpStatusCode.NotFound:
+                        return null;
 
-                default:
-                    throw new ConsentConfigurationException("Invalid configuration provided to access consent service", response.Body as string);
+                    case System.Net.HttpStatusCode.BadRequest:
+                        throw new ConsentValidationException(response.Body as IDictionary<string, IList<string>>);
+
+                    default:
+                        throw new ConsentConfigurationException("Invalid configuration provided to access consent service", response.Body as string);
+                }
+            }
+            catch (ValidationException ex)
+            {
+                throw new ConsentValidationException(ex.Message, ex);
             }
         }
 
@@ -83,7 +89,6 @@ namespace Kmd.Logic.Consent.Client
         /// <param name="key">The consent key.</param>
         /// <param name="scope">The scope being requested.</param>
         /// <returns>The consent details or null if the key isn't known.</returns>
-        /// <exception cref="ValidationException">Missing key.</exception>
         /// <exception cref="SerializationException">Unable process the service response.</exception>
         /// <exception cref="LogicTokenProviderException">Unable to issue an authorization token.</exception>
         /// <exception cref="ConsentValidationException">Invalid consent parameters.</exception>
@@ -99,7 +104,6 @@ namespace Kmd.Logic.Consent.Client
         /// <param name="key">The consent key.</param>
         /// <param name="scopes">The scopes being requested. Consent must be granted for at least one of the nominated scopes.</param>
         /// <returns>The consent details or null if the key isn't known.</returns>
-        /// <exception cref="ValidationException">Missing key or member.</exception>
         /// <exception cref="SerializationException">Unable process the service response.</exception>
         /// <exception cref="LogicTokenProviderException">Unable to issue an authorization token.</exception>
         /// <exception cref="ConsentValidationException">Invalid consent parameters.</exception>
@@ -133,7 +137,6 @@ namespace Kmd.Logic.Consent.Client
         /// <param name="member">The consent member we are requesting on behalf of.</param>
         /// <param name="scopes">The scopes being requested. Consent must be granted for at least one of the nominated scopes.</param>
         /// <returns>The consent details or null if the key isn't known.</returns>
-        /// <exception cref="ValidationException">Missing key or member.</exception>
         /// <exception cref="SerializationException">Unable process the service response.</exception>
         /// <exception cref="LogicTokenProviderException">Unable to issue an authorization token.</exception>
         /// <exception cref="ConsentValidationException">Invalid consent parameters.</exception>
@@ -142,29 +145,36 @@ namespace Kmd.Logic.Consent.Client
         {
             var client = this.CreateClient();
 
-            string scopesList = null;
-            if (scopes != null && scopes.Count > 0)
+            try
             {
-                scopesList = string.Join(" ", scopes);
+                string scopesList = null;
+                if (scopes != null && scopes.Count > 0)
+                {
+                    scopesList = string.Join(" ", scopes);
+                }
+
+                var response = await client.GetMemberConsentWithHttpMessagesAsync(
+                                    subscriptionId: this.options.SubscriptionId,
+                                    consentGroupId: this.options.ConsentGroupId,
+                                    key: key,
+                                    member: member,
+                                    scopes: scopesList).ConfigureAwait(false);
+
+                switch (response.Response.StatusCode)
+                {
+                    case System.Net.HttpStatusCode.OK:
+                        return response.Body;
+
+                    case System.Net.HttpStatusCode.NotFound:
+                        return null;
+
+                    default:
+                        throw new ConsentConfigurationException("Invalid configuration provided to access consent service");
+                }
             }
-
-            var response = await client.GetMemberConsentWithHttpMessagesAsync(
-                                subscriptionId: this.options.SubscriptionId,
-                                consentGroupId: this.options.ConsentGroupId,
-                                key: key,
-                                member: member,
-                                scopes: scopesList).ConfigureAwait(false);
-
-            switch (response.Response.StatusCode)
+            catch (ValidationException ex)
             {
-                case System.Net.HttpStatusCode.OK:
-                    return response.Body;
-
-                case System.Net.HttpStatusCode.NotFound:
-                    return null;
-
-                default:
-                    throw new ConsentConfigurationException("Invalid configuration provided to access consent service");
+                throw new ConsentValidationException(ex.Message, ex);
             }
         }
 
@@ -200,30 +210,77 @@ namespace Kmd.Logic.Consent.Client
         {
             var client = this.CreateClient();
 
-            var request = new ConsentRequest
+            try
             {
-                Member = member,
-                Scopes = scopes,
-                AuthorizedMembers = authorizedMembers,
-            };
+                var request = new ConsentRequest
+                {
+                    Member = member,
+                    Scopes = scopes,
+                    AuthorizedMembers = authorizedMembers,
+                };
 
-            var response = await client.SaveConsentWithHttpMessagesAsync(
-                                subscriptionId: this.options.SubscriptionId,
-                                consentGroupId: this.options.ConsentGroupId,
-                                key: key,
-                                request: request).ConfigureAwait(false);
+                var response = await client.SaveConsentWithHttpMessagesAsync(
+                                    subscriptionId: this.options.SubscriptionId,
+                                    consentGroupId: this.options.ConsentGroupId,
+                                    key: key,
+                                    request: request).ConfigureAwait(false);
 
-            switch (response.Response.StatusCode)
+                switch (response.Response.StatusCode)
+                {
+                    case System.Net.HttpStatusCode.OK:
+                    case System.Net.HttpStatusCode.Created:
+                        return (ConsentInstance)response.Body;
+
+                    case System.Net.HttpStatusCode.BadRequest:
+                        throw new ConsentValidationException(response.Body as IDictionary<string, IList<string>>);
+
+                    default:
+                        throw new ConsentConfigurationException("Invalid configuration provided to access consent service", response.Body as string);
+                }
+            }
+            catch (ValidationException ex)
             {
-                case System.Net.HttpStatusCode.OK:
-                case System.Net.HttpStatusCode.Created:
-                    return (ConsentInstance)response.Body;
+                throw new ConsentValidationException(ex.Message, ex);
+            }
+        }
 
-                case System.Net.HttpStatusCode.BadRequest:
-                    throw new ConsentValidationException(response.Body as IDictionary<string, IList<string>>);
+        /// <summary>
+        /// Delete (revoke) all consent for a given key.
+        /// </summary>
+        /// <param name="key">The consent key.</param>
+        /// <param name="member">The consent member we are updating on behalf of.</param>
+        /// <exception cref="SerializationException">Unable process the service response.</exception>
+        /// <exception cref="LogicTokenProviderException">Unable to issue an authorization token.</exception>
+        /// <exception cref="ConsentValidationException">Invalid consent request.</exception>
+        /// <exception cref="ConsentConfigurationException">Invalid consent configuration details.</exception>
+        /// <returns>True if consent was revoked, false if there was no prior consent given for the key.</returns>
+        public async Task<bool> DeleteConsent(string key, string member = null)
+        {
+            var client = this.CreateClient();
 
-                default:
-                    throw new ConsentConfigurationException("Invalid configuration provided to access consent service", response.Body as string);
+            try
+            {
+                var response = await client.DeleteConsentWithHttpMessagesAsync(
+                    subscriptionId: this.options.SubscriptionId,
+                    consentGroupId: this.options.ConsentGroupId,
+                    key: key,
+                    member: member ?? this.options.ConsentMember).ConfigureAwait(false);
+
+                switch (response.Response.StatusCode)
+                {
+                    case System.Net.HttpStatusCode.NoContent:
+                        return true;
+
+                    case System.Net.HttpStatusCode.NotFound:
+                        return false;
+
+                    default:
+                        throw new ConsentConfigurationException("Invalid configuration provided to access consent service");
+                }
+            }
+            catch (ValidationException ex)
+            {
+                throw new ConsentValidationException(ex.Message, ex);
             }
         }
 

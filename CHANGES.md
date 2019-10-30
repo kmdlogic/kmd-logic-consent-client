@@ -1,3 +1,6 @@
+1.0.1
+* Added DeleteConsent()
+
 1.0.0
 * Created a nuget package
 

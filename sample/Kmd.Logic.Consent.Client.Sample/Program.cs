@@ -153,6 +153,30 @@ namespace Kmd.Logic.Consent.Client.Sample
                         Log.Error("Unable to find consent details for key {Key}", configuration.ConsentKey);
                     }
                 }
+
+                var deleted = await consentClient.DeleteConsent(configuration.ConsentKey).ConfigureAwait(false);
+                if (deleted)
+                {
+                    Log.Information("Consent for key {Key} was revoked", configuration.ConsentKey);
+                }
+                else
+                {
+                    Log.Error("Unable to revoke consent details for key {Key}", configuration.ConsentKey);
+                }
+
+                if (ownedGroup != null)
+                {
+                    var consentReview = await consentClient.ReviewConsentAsync(configuration.ConsentKey).ConfigureAwait(false);
+
+                    if (consentReview != null)
+                    {
+                        Log.Error("Unexpectedly found consent definition {@Definition}", consentReview);
+                    }
+                    else
+                    {
+                        Log.Information("Consent details for key {Key} not longer exist, as expected", configuration.ConsentKey);
+                    }
+                }
             }
         }
     }
