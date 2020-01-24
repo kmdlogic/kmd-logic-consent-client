@@ -56,8 +56,8 @@ The simplest example to get consent details is:
 
 ```csharp
 using (var httpClient = new HttpClient())
+using (var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider))
 {
-    var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider);
     var consentClient = new ConsentClient(httpClient, tokenProviderFactory, configuration.Consent);
     var consent = await consentClient.GetConsentAsync(key, scope).ConfigureAwait(false);
 }
@@ -75,7 +75,8 @@ Perhaps the easiest way to configure the Consent client is from Application Sett
 {
   "TokenProvider": {
     "ClientId": "",
-    "ClientSecret": ""
+    "ClientSecret": "",
+    "AuthorizationScope": ""
   },
   "Consent": {
     "SubscriptionId": "",
@@ -87,7 +88,7 @@ Perhaps the easiest way to configure the Consent client is from Application Sett
 To get started:
 
 1. Create a subscription in [Logic Console](https://console.kmdlogic.io). This will provide you the `SubscriptionId`.
-2. Request a client credential. Once issued you can view the `ClientId` and `ClientSecret` in [Logic Console](https://console.kmdlogic.io).
+2. Request a client credential. Once issued you can view the `ClientId`, `ClientSecret` and `AuthorizationScope` in [Logic Console](https://console.kmdlogic.io).
 3. Create a consent group. This will give you the `ConsentGroupId`.
 4. You should add at least one member to the consent group using your own `SubscriptionId`.
 

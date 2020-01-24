@@ -59,8 +59,8 @@ namespace Kmd.Logic.Consent.Client.Sample
             }
 
             using (var httpClient = new HttpClient())
+            using (var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider))
             {
-                var tokenProviderFactory = new LogicTokenProviderFactory(configuration.TokenProvider);
                 var consentClient = new ConsentClient(httpClient, tokenProviderFactory, configuration.Consent);
 
                 var groups = await consentClient.GetAllConsentGroupsAsync().ConfigureAwait(false);

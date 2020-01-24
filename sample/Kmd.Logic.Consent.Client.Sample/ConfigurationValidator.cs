@@ -15,6 +15,7 @@ namespace Kmd.Logic.Consent.Client.Sample
         {
             if (string.IsNullOrWhiteSpace(this.configuration.TokenProvider?.ClientId)
                 || string.IsNullOrWhiteSpace(this.configuration.TokenProvider?.ClientSecret)
+                || string.IsNullOrWhiteSpace(this.configuration.TokenProvider?.AuthorizationScope)
                 || this.configuration.Consent?.SubscriptionId == null
                 || string.IsNullOrEmpty(this.configuration.Consent?.ConsentMember))
             {
