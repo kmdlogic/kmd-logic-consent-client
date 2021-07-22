@@ -14,7 +14,7 @@
     <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
     <Authors>KMD</Authors>
     <PackageTags>kmd;logic;consent</PackageTags>
-    <PackageIconUrl>https://console.kmdlogic.io/favicon-32x32.png</PackageIconUrl>
+    <PackageIcon>kmd-logic-icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/kmdlogic/kmd-logic-consent-client</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/kmdlogic/kmd-logic-consent-client</RepositoryUrl>
